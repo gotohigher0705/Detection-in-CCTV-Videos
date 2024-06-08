@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const { exec } = require('child_process');
+const fs = require('fs');
 
 
 // ----- VARIABLES -----
@@ -78,7 +79,7 @@ app.post('/commands', uploadVideo.single('video'), (req, res) => {
   const command = req.headers.command;
   const outputName = req.headers.output;
   console.log(`---- COMMAND: ${command}`)
-  
+
   const ffmpegCommand = `ffmpeg -i ${req.file.path} ${command} results/${outputName}`;
   console.log(`-- FFMPEG: ${ffmpegCommand}`)
   exec(ffmpegCommand, (fferror, ffstdout, ffstderr) => {
@@ -90,7 +91,7 @@ app.post('/commands', uploadVideo.single('video'), (req, res) => {
       messagge: 'File converted!',
       sourceVideoPath: req.file.path,
       outputName: outputName,
-      codec: codec
+      codec: command
     };
     res.status(200).send(response);
   });
@@ -98,24 +99,24 @@ app.post('/commands', uploadVideo.single('video'), (req, res) => {
 
 
 app.post('/metrics', (req, res) => {
-  const { outputName, sourceVideoPath } = req.body;
+  const { outputName, sourceVideoPath, codec } = req.body;
 
-  const qualityMetricsCommand = `ffmpeg-quality-metrics results/${outputName} ${sourceVideoPath} \ -m psnr ssim vmaf`
+  const qualityMetricsCommand = `ffmpeg-quality-metrics results/${outputName} ${sourceVideoPath} -m psnr ssim vmaf`
   console.log(`-- QUALITY METRICS: ${qualityMetricsCommand}`)
   exec(qualityMetricsCommand, (qmError, qmStdout, qmStderr) => {
     if (qmError) {
       console.error('Error:', qmError);
       res.status(500).send('Error:', qmError);
     }
-
-    const fileSizeCommand = `stat -c "%s" results/${outputName}`;
-    console.log(`-- FILE SIZE: ${fileSizeCommand}`)
-    exec(fileSizeCommand, (fsError, fsStdout, fsStderr) => {
-      if (fsError) {
-        console.error('Error:', fsError);
-        res.status(500).send('Error:', fsError);
+    
+    const filePath = `results/${outputName}`;
+    console.log(`-- FILE SIZE: ${filePath}`)
+    fs.stat(filePath, (err, stats) => {
+      if (err) {
+        console.error('Error:', err);
+        res.status(500).send('Error:', err);
       }
-      const fileSize = (parseInt(fsStdout) * 0.000001).toFixed(2);
+      const fileSize = (parseInt(stats.size) * 0.000001).toFixed(2);
 
       const response = {
         filename: outputName,
