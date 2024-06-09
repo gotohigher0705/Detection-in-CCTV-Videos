@@ -43,7 +43,7 @@ ffmpeg-quality-metrics -version
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;If it is not installed, you can install it by following the installation instructions in [the FFmpeg-quality-metrics repository](https://github.com/slhck/ffmpeg-quality-metrics/tree/master?tab=readme-ov-file#requirements).
 
-### Clone the Project Repository, install the dependencies, and build the server:
+### Clone the Project Repository:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Clone the video processor repository from GitHub. You can clone it either from the IDE or using git clone:
 ```
@@ -57,7 +57,7 @@ git clone https://github.com/vjimcor955/benchmark_ffmpeg-video_processor
 npm install
 ```
 
-### Server Upgrade:
+### Run the server:
 
 &nbsp;&nbsp;&nbsp;&nbsp;After installing the dependencies, run the server using the following command:
 ```
