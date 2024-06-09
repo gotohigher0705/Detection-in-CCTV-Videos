@@ -9,7 +9,7 @@
 > [!IMPORTANT]  
 > Cloning this repository is required in order to use the application!
 
-* Frontend deploy: https://ffmpegbenchmark.netlify.app/#/
+* Frontend deployment: https://ffmpegbenchmark.netlify.app/#/
 
 ## Requirements
 
