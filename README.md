@@ -11,6 +11,8 @@
 
 * Frontend deployment: https://ffmpegbenchmark.netlify.app/#/
 
+* [Complete project documentation](https://docs.google.com/document/d/1BiLZMec3593rihFXTcNCVjMaDec9oPi9uthvoekkeUc/edit?usp=sharing)
+
 ## Requirements
 
   - [Node.js](https://nodejs.org/)
