@@ -1,14 +1,14 @@
 # Benchmark FFmpeg - Video processor
 
 > [!NOTE]
-> This is one of the 3 repos that take part on this proyect:
+> This is one of the 3 repos involved in this project:
 
 * Video Processor 
 * [Frontend](https://github.com/vjimcor955/benchmark_ffmpeg-frontend)
 * [Backend](https://github.com/vjimcor955/benchmark_ffmpeg-backend)
 
 > [!IMPORTANT]  
-> This repo is needed in orther to make use of the app!
+> Cloning this repository is required in order to use the application!
 
 * Frontend deploy: https://ffmpegbenchmark.netlify.app/#/
 
