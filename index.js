@@ -39,11 +39,19 @@ app.use(express.static('results'));
 
 
 /**
- * Handles the POST request for the /codecs endpoint.
- * Executes FFmpeg command to convert the video to the specified codec and returns the video converted along with its quality metrics.
+ * Handles the POST request for the /command endpoint.
+ * Executes FFmpeg command to convert the video with the specified command and returns the video converted along with its quality metrics.
  * 
  * @param {import('express').Request} req - The request object.
+ * @param {file} video - The video to be converted.
+ * @param {string} codec - The codec to convert the video.
+ * 
  * @param {import('express').Response} res - The response object.
+ * @param {string} response.messagge - The message returned.
+ * @param {string} response.sourceVideoPath - The path of the source video.
+ * @param {string} response.outputName - The name of the output file.
+ * @param {string} response.codec - The codec used to convert the video.
+ * 
  */
 app.post('/codecs', uploadVideo.single('video'), (req, res) => {
   const codec = req.headers.codec;
@@ -73,7 +81,16 @@ app.post('/codecs', uploadVideo.single('video'), (req, res) => {
  * Executes FFmpeg command to convert the video with the specified command and returns the video converted along with its quality metrics.
  * 
  * @param {import('express').Request} req - The request object.
+ * @param {file} video - The video to be converted.
+ * @param {string} command - The command to be executed.
+ * @param {string} outputName - The name of the output file.
+ * 
  * @param {import('express').Response} res - The response object.
+ * @param {string} response.messagge - The message returned.
+ * @param {string} response.sourceVideoPath - The path of the source video.
+ * @param {string} response.outputName - The name of the output file.
+ * @param {string} response.codec - The command used to convert the video.
+ * 
  */
 app.post('/commands', uploadVideo.single('video'), (req, res) => {
   const command = req.headers.command;
@@ -97,7 +114,22 @@ app.post('/commands', uploadVideo.single('video'), (req, res) => {
   });
 });
 
-
+/**
+ * Handles the POST request for the /metrics endpoint.
+ * Executes FFmpeg command to calculate the quality metrics of the video and returns the video converted along with its quality metrics.
+ * 
+ * @param {import('express').Request} req - The request object.
+ * @param {string} outputName - The name of the output file.
+ * @param {string} sourceVideoPath - The path of the source video.
+ * @param {string} codec - The codec used to convert the video.
+ * 
+ * @param {import('express').Response} res - The response object.
+ * @param {object} response.filename - The name of the output file.
+ * @param {object} response.codec - The codec used to convert the video.
+ * @param {object} response.size - The size of the output file.
+ * @param {object} response.quality_metrics - The quality metrics of the output file. 
+ * 
+ */
 app.post('/metrics', (req, res) => {
   const { outputName, sourceVideoPath, codec } = req.body;
 
